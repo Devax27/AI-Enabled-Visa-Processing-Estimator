@@ -1,18 +1,30 @@
-📊 AI-Enabled Visa Processing Time Prediction System
-📌 Project Statement
+🤖 AI Enabled Visa Status Prediction & Processing Time Estimator
 
-Visa applicants often face long waiting times and uncertainty regarding the progress of their applications. This project aims to develop a predictive analytics system that estimates visa processing times based on historical data. By analyzing past application records—such as applicant country, application type, processing office, and seasonal variations—the system provides data-driven estimates of how long a visa application may take, improving transparency and applicant experience.
+   Predicting visa outcomes and processing timelines using AI-driven analytics.
+
+📌 Project Overview
+
+  Visa applicants often face long waiting times and uncertainty regarding the progress of their applications. This project focuses on building an AI-powered predictive       analytics system that estimates visa processing times based on historical application data.
+
+  By analyzing attributes such as applicant country, visa type, processing office, and seasonal trends, the system provides data-driven estimates to improve transparency     and enhance the overall applicant experience.
 
 🎯 Project Objectives
 
 + Estimate visa processing times using historical data
-+ Reduce uncertainty faced by visa applicants
-+ Improve transparency in visa application workflows
-+ Apply machine learning for predictive analytics
++ Reduce uncertainty for visa applicants
++ Identify trends affecting visa approvals and timelines
++ Build a user-friendly predictive tool using AI & ML
 
-✅ Expected Outcomes
+✅ Key Outcomes
 
-/Data-Driven Estimates: Predict approximate processing times for visa applications
-/Trend Analysis: Identify seasonal and regional patterns in visa processing
-/User-Friendly Tool: Provide an easy-to-use web-based estimator
-/Improved Transparency: Reduce applicant uncertainty with data-backed predictions
+📊 Data-Driven Estimates
+Predict approximate processing times for visa applications
+
+📈 Trend Analysis
+Identify seasonal and regional patterns in visa processing
+
+🧑‍💻 User-Friendly Tool
+Provide an easy-to-use web-based estimator
+
+🔍 Improved Transparency
+Reduce applicant uncertainty using data-backed predictions
