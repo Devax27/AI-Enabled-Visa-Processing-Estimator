@@ -1,8 +1,14 @@
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+OUTPUT_DIR = os.path.join(BASE_DIR, "..", "outputs")
+
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
 
 
 df = pd.read_csv("data/VisaFile.csv", encoding="latin1", low_memory=False)
@@ -70,7 +76,8 @@ plt.figure(figsize=(8,5))
 sns.histplot(df["processing_time_days"], bins=50)
 plt.xlabel("Processing Time (days)")
 plt.title("Distribution of Visa Processing Time")
-plt.show()
+plt.savefig(os.path.join(OUTPUT_DIR, "processing_time_distribution.png"))
+plt.close()
 
 df = df[df["processing_time_days"] <= 365]
 
@@ -83,7 +90,10 @@ df[num_cols].hist(
     edgecolor="black"
 )
 plt.suptitle("Distribution of Numerical Features", fontsize=16)
-plt.show()
+plt.savefig(os.path.join(OUTPUT_DIR, "numerical_distribution.png"))
+plt.close()
+
+plt.close()
 
 df.select_dtypes(include="object").columns
 
@@ -99,7 +109,10 @@ sns.barplot(x=top_categories.values, y=top_categories.index)
 plt.xlabel("Average Processing Time (Days)")
 plt.ylabel("visa_status")
 plt.title("Average Processing Time by Case Status")
-plt.show()
+plt.savefig(os.path.join(OUTPUT_DIR, "visa_status_avg_processing.png"))
+plt.close()
+
+
 
 
 plt.figure(figsize=(10, 5))
@@ -110,7 +123,10 @@ sns.boxplot(
 )
 plt.xticks(rotation=45)
 plt.title("Processing Time Distribution by Case Status")
-plt.show()
+plt.savefig(os.path.join(OUTPUT_DIR, "visa_status_boxplot.png"))
+plt.close()
+
+
 
 plt.figure(figsize=(10, 8))
 sns.heatmap(
@@ -120,7 +136,8 @@ sns.heatmap(
     fmt=".2f"
 )
 plt.title("Correlation Heatmap")
-plt.show()
+plt.savefig(os.path.join(OUTPUT_DIR, "correlation_heatmap.png"))
+plt.close()
 
 
 
@@ -134,16 +151,22 @@ plt.xlabel("Month")
 plt.ylabel("Avg Processing Time (Days)")
 plt.title("Monthly Trend in Visa Processing Time")
 plt.grid(True)
-plt.show()
+plt.savefig(os.path.join(OUTPUT_DIR, "monthly_trend.png"))
+plt.close()
+
+
 
 
 # “Processing time varies seasonally, likely due to application volume.”
 
-sns.pairplot(
+pairplot = sns.pairplot(
     df[num_cols].sample(2000),
     diag_kind="kde"
 )
-plt.show()
+pairplot.savefig(os.path.join(OUTPUT_DIR, "pairplot.png"))
+plt.close()
+
+
 
 # To avoid memory issues.
 print("Remaining missing values:")
@@ -153,7 +176,10 @@ print(df.isnull().sum().sort_values(ascending=False).head(10))
 plt.figure(figsize=(10, 6))
 sns.heatmap(df.isnull(), cbar=False)
 plt.title("Missing Values Heatmap")
-plt.show()
+plt.savefig(os.path.join(OUTPUT_DIR, "missing_values_heatmap.png"))
+plt.close()
+
+
 
 
 # ## Extended EDA Summary
@@ -190,9 +216,8 @@ sns.barplot(
 )
 plt.xticks(rotation=45)
 plt.title("Average Processing Time by Visa Type and Country")
-plt.show()
-
-
+plt.savefig(os.path.join(OUTPUT_DIR, "work_city_analysis.png"))
+plt.close()
 
 pivot_df = (
     df.groupby(["visa_status", "work_state"])["processing_time_days"]
@@ -218,7 +243,10 @@ sns.barplot(
 )
 plt.xticks(rotation=45)
 plt.title("Average Processing Time by Visa Type and Country")
-plt.show()
+plt.savefig(os.path.join(OUTPUT_DIR, "work_state_analysis.png"))
+plt.close()
+
+
 
 
 # ## Feature Insights
