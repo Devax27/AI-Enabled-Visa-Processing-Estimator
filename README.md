@@ -1,30 +1,57 @@
-🤖 AI Enabled Visa Status Prediction & Processing Time Estimator
+# 🚀 AI-Enabled Visa Processing Estimator (Milestone 1 And 2)
 
-   Predicting visa outcomes and processing timelines using AI-driven analytics.
+**AI-Enabled Visa Processing Estimator** is a Python-based machine learning project that predicts **visa application outcomes** and estimates **processing times** using historical data. It’s built to help applicants, developers, and researchers better understand trends and reduce uncertainty in visa decisions.
 
-📌 Project Overview
+> 📊 With global visa systems increasingly using AI for screening and prioritization, your model can assist by offering predictions and data-driven insights rather than guesswork. :contentReference[oaicite:0]{index=0}
 
-  Visa applicants often face long waiting times and uncertainty regarding the progress of their applications. This project focuses on building an AI-powered predictive       analytics system that estimates visa processing times based on historical application data.
+---
 
-  By analyzing attributes such as applicant country, visa type, processing office, and seasonal trends, the system provides data-driven estimates to improve transparency     and enhance the overall applicant experience.
+## 📌 Features
 
-🎯 Project Objectives
+✔️ Predict the likelihood of visa approval using trained ML models  
+✔ Estimate visa processing timelines based on historical trends  
+✔ Analyze influential applicant and application attributes  
+✔ Easy to extend with new datasets or UI improvements  
+✔ Designed for research, prototyping, and visualization
 
-+ Estimate visa processing times using historical data
-+ Reduce uncertainty for visa applicants
-+ Identify trends affecting visa approvals and timelines
-+ Build a user-friendly predictive tool using AI & ML
+---
 
-✅ Key Outcomes
+## 🎯 Motivation
 
-📊 Data-Driven Estimates
-Predict approximate processing times for visa applications
+Visa applicants often face:
 
-📈 Trend Analysis
-Identify seasonal and regional patterns in visa processing
+- Long processing delays  
+- Lack of transparency on waiting time expectations  
+- Uncertainty in approval chances
 
-🧑‍💻 User-Friendly Tool
-Provide an easy-to-use web-based estimator
+This project uses **machine learning** to address these challenges by learning from historical visa data and providing interpretable predictions.
 
-🔍 Improved Transparency
-Reduce applicant uncertainty using data-backed predictions
+---
+
+## 🧠 How It Works
+
+1. 📂 Load historical visa application data  
+2. 🛠️ Preprocess and clean features  
+3. 🤖 Train ML classification/regression models  
+4. 📈 Output predicted approval probability and estimated processing time
+
+Models can be improved as more data becomes available or with advanced techniques like ensemble learning.
+
+---
+
+## 🛠️ Installation
+
+Ensure you have Python 3.8+ installed.
+
+```bash
+# Clone the repository
+git clone https://github.com/Devax27/AI-Enabled-Visa-Processing-Estimator.git
+cd AI-Enabled-Visa-Processing-Estimator
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate   # Linux or Mac
+venv\Scripts\activate      # Windows
+
+# Install dependencies
+pip install -r requirements.txt
