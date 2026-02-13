@@ -1,1 +1,11 @@
 data/
+# Ignore generated outputs
+outputs/
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+
+# Ignore virtual environment
+venv/
+
