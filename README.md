@@ -55,3 +55,9 @@ venv\Scripts\activate      # Windows
 
 # Install dependencies
 pip install -r requirements.txt
+## 📊 Generate EDA Visualizations
+
+Run:
+
+```bash
+python src/eda.py
