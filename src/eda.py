@@ -71,12 +71,15 @@ def main():
 
         df = df[df["processing_time_days"] >= 0]
 
+        categorical_cols = ["visa_class", "visa_status", "work_state"]
 
+        df_encoded = pd.get_dummies(df,columns=categorical_cols,drop_first=True)
 
+        print("Shape before encoding:", df.shape)
+        print("Shape after encoding:", df_encoded.shape)
+        
         df.head()
-
         df.shape
-
 
         df["processing_time_days"].describe()
 
