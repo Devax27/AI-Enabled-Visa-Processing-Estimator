@@ -1,6 +1,5 @@
 data/
-# Ignore generated outputs
-outputs/
+
 
 # Ignore Python cache
 __pycache__/
