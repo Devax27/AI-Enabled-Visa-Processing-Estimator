@@ -63,5 +63,5 @@ Run:
 python src/eda.py
 
 Note: The dataset does not include processing center information. 
-Therefore, geographic variation was analyzed using worksite_state 
-and employer_state features.
+Therefore, geographic variation was analyzed using work_city
+and work_state features.
