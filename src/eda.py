@@ -71,17 +71,21 @@ def main():
 
         df = df[df["processing_time_days"] >= 0]
         
-        Q1 = df["processing_time_days"].quantile(0.25)
-        Q3 = df["processing_time_days"].quantile(0.75)
-        IQR = Q3 - Q1
+        def cap_series(series):
+            Q1 = series.quantile(0.25)
+            Q3 = series.quantile(0.75)
+            IQR = Q3 - Q1
 
-        lower_bound = Q1 - 1.5 * IQR
-        upper_bound = Q3 + 1.5 * IQR
+            lower = Q1 - 1.5 * IQR
+            upper = Q3 + 1.5 * IQR
 
-        print("Lower Bound:", lower_bound)
-        print("Upper Bound:", upper_bound)
-        
-        df["processing_time_days"] = df["processing_time_days"].clip(lower_bound, upper_bound)
+            return series.clip(lower, upper)
+
+        df["processing_time_days"] = (
+            df.groupby("visa_status")["processing_time_days"]
+            .transform(cap_series)
+        )
+
 
         categorical_cols = ["visa_class", "visa_status", "work_state"]
 
