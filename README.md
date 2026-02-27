@@ -1,67 +1,129 @@
-# 🚀 AI-Enabled Visa Processing Estimator (Milestone 1 And 2)
+🚀 AI-Enabled Visa Processing Estimator
+(Milestone 1 & 2 Completed)
 
-**AI-Enabled Visa Processing Estimator** is a Python-based machine learning project that predicts **visa application outcomes** and estimates **processing times** using historical data. It’s built to help applicants, developers, and researchers better understand trends and reduce uncertainty in visa decisions.
+The AI-Enabled Visa Processing Estimator is a Python-based data science project designed to analyze historical visa application data and estimate visa processing times using structured preprocessing and feature engineering.
 
-> 📊 With global visa systems increasingly using AI for screening and prioritization, your model can assist by offering predictions and data-driven insights rather than guesswork. :contentReference[oaicite:0]{index=0}
+This project focuses on building a clean, industry-style data pipeline before moving into full machine learning modeling.
 
----
+🎯 Project Objective
 
-## 📌 Features
+Visa processing systems often face:
+Long and unpredictable delays
+Regional workload differences
+Seasonal backlogs
+Lack of transparency in timelines
+This project aims to:
+Analyze visa processing trends
+Engineer meaningful predictive features
+Prepare a production-ready dataset for ML modeling
 
-✔️ Predict the likelihood of visa approval using trained ML models  
-✔ Estimate visa processing timelines based on historical trends  
-✔ Analyze influential applicant and application attributes  
-✔ Easy to extend with new datasets or UI improvements  
-✔ Designed for research, prototyping, and visualization
+✅ Milestone 1 – 
 
----
+In this phase, the focus was on understanding the dataset and cleaning inconsistencies.
 
-## 🎯 Motivation
+✔ Data Cleaning
 
-Visa applicants often face:
+Standardized column names
+Handled missing values
+Cleaned categorical inconsistencies
+Converted date columns properly
 
-- Long processing delays  
-- Lack of transparency on waiting time expectations  
-- Uncertainty in approval chances
+✔ Processing Time Calculation
 
-This project uses **machine learning** to address these challenges by learning from historical visa data and providing interpretable predictions.
+Created processing_time_days
+Removed invalid date entries
+Removed negative processing durations
 
----
+✔ Outlier Handling
 
-## 🧠 How It Works
+Applied group-wise IQR capping per visa category
+(Industry-standard outlier control)
 
-1. 📂 Load historical visa application data  
-2. 🛠️ Preprocess and clean features  
-3. 🤖 Train ML classification/regression models  
-4. 📈 Output predicted approval probability and estimated processing time
+✔ Visualizations Generated
 
-Models can be improved as more data becomes available or with advanced techniques like ensemble learning.
+Processing time distribution
+Correlation heatmap
+Monthly trend analysis
+Visa category comparison
+Missing value heatmap
+Pairplot
+Interactive Plotly histogram
+All plots are automatically saved inside the outputs/ folder.
 
----
+✅ Milestone 2 – Industry-Level Feature Engineering
 
-## 🛠️ Installation
+This phase transforms raw data into modeling-ready signals.
 
-Ensure you have Python 3.8+ installed.
+🔹 Time-Based Features
 
-```bash
-# Clone the repository
-git clone https://github.com/Devax27/AI-Enabled-Visa-Processing-Estimator.git
-cd AI-Enabled-Visa-Processing-Estimator
+year
+month
+quarter
+season (Peak vs Off-Peak)
 
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate   # Linux or Mac
-venv\Scripts\activate      # Windows
+🔹 Historical Aggregated Signals
 
-# Install dependencies
-pip install -r requirements.txt
-## 📊 Generate EDA Visualizations
+country_avg (city-level average processing time)
+visa_avg (visa-status historical average)
+state_avg (regional processing average)
+
+🔹 Backlog Proxy Feature
+
+monthly_volume
+Approximates case load per month
+Simulates real-world backlog pressure
+
+These features mirror how real immigration dashboards analyze workload and trends.
+
+🏗️ Project Structure
+AI-Enabled-Visa-Processing-Estimator/
+│
+├── src/
+│   └── eda.py
+│
+├── data/
+│   └── VisaFile.csv
+│
+├── outputs/
+│   ├── correlation_heatmap.png
+│   ├── monthly_trend.png
+│   ├── processing_time_distribution.png
+│   ├── season_vs_processing.png
+│   └── interactive_processing_time.html
+│
+├── requirements.txt
+└── README.md
+
+The project uses a modular structure with main() execution and path-safe file handling.
+
+📊 Generate EDA Visualizations
 
 Run:
 
-```bash
 python src/eda.py
+All plots will be automatically generated and saved in the outputs/ directory.
 
-Note: The dataset does not include processing center information. 
-Therefore, geographic variation was analyzed using work_city
-and work_state features.
+🧠 Why This Approach?
+
+Instead of jumping directly to ML models, this project focuses on:
+Clean data pipelines
+Strong feature engineering
+Realistic backlog modeling
+Reproducible structure
+This ensures that when modeling begins (Milestone 3), the data foundation is strong.
+
+⚠️ Note
+
+The dataset does not include official processing center identifiers.
+Geographic variation was analyzed using:
+
+work_city
+work_state
+
+These serve as regional workload approximations.
+
+🏆 Current Status
+
+Milestone 1: ✅ Completed
+Milestone 2: ✅ Completed (Industry-level feature engineering)
+Milestone 3: ⏳ Upcoming
