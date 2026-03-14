@@ -123,48 +123,30 @@ Build a production-ready ML pipeline
 ✅ Milestone 1 – Data Collection & Preprocessing
 
 This phase focuses on preparing a clean and reliable dataset for analysis and modeling.
-
 Data Cleaning
-
 Standardized column names
-
 Handled missing values
-
 Cleaned categorical inconsistencies
-
 Converted date columns properly
-
 Processing Time Calculation
-
 A new target variable was created:
-
 processing_time_days = decision_date − case_received_date
-
 
 Additional preprocessing steps:
 
 Removed invalid date entries
-
 Removed negative processing durations
-
 Outlier Handling
-
 Applied group-wise IQR capping to reduce the effect of extreme processing times.
-
 This is an industry-standard technique for handling outliers in operational datasets.
 
 Visualizations Generated
 
 The EDA pipeline automatically produces:
-
 Processing time distribution
-
 Correlation heatmap
-
 Monthly trend analysis
-
 Season vs processing comparison
-
 Interactive Plotly histogram
 
 All plots are automatically saved in the outputs/ directory.
@@ -235,25 +217,17 @@ colsample_bytree
 
 
 This improved the performance of the base model.
-
 Feature Importance
-
 The trained model identifies the most influential factors affecting visa processing time.
 
 Example important features:
 
 visa_class
-
 job category (SOC title)
-
 visa status
-
 application month
-
 processing year
-
 Explainable AI (SHAP)
-
 Model predictions were interpreted using SHAP.
 
 SHAP helps explain:
@@ -306,21 +280,15 @@ AI-Enabled-Visa-Processing-Estimator/
 └── README.md
 
 ▶ How to Run the Project
-
 Install dependencies:
-
 pip install -r requirements.txt
 
 
 Run EDA analysis:
-
 python src/eda.py
 
-
 Train the model:
-
 python src/train_model.py
-
 
 Run prediction:
 
