@@ -4,9 +4,9 @@ data/
 # Ignore Python cache
 __pycache__/
 *.pyc
+catboost_info/
 
 # Ignore virtual environment
 venv/
 outputs/*.html
-catboost_info/
 
