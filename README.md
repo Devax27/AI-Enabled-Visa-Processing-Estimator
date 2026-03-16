@@ -5,41 +5,25 @@ The AI-Enabled Visa Processing Time Estimator is a machine learning project desi
 This project simulates how real immigration analytics systems analyze historical workload, regional patterns, and seasonal trends to provide estimated visa processing timelines.
 
 The system follows a complete industry-style ML pipeline, including:
-
 Data preprocessing
-
 Feature engineering
-
 Model training
-
 Hyperparameter tuning
-
 Explainable AI
-
 Prediction engine
 
 🎯 Project Objective
-
 Visa processing systems often face several challenges:
-
 Long and unpredictable delays
-
 Regional workload differences
-
 Seasonal backlog surges
-
 Lack of transparency in processing timelines
 
 This project aims to:
-
 Analyze visa processing trends
-
 Engineer predictive features from historical records
-
 Train machine learning models to estimate processing time
-
 Provide a realistic prediction range instead of a single value
-
 Build a production-ready ML pipeline
 
 🧩 System Architecture
@@ -154,9 +138,7 @@ All plots are automatically saved in the outputs/ directory.
 ✅ Milestone 2 – Industry-Level Feature Engineering
 
 This stage transforms raw visa records into predictive signals.
-
 Time-Based Features
-
 Derived from application date:
 
 year
@@ -166,7 +148,6 @@ season (Peak vs Off-Peak)
 
 
 These simulate seasonal visa application trends.
-
 Historical Aggregated Signals
 
 These features capture historical processing patterns:
@@ -184,31 +165,21 @@ This approximates the number of visa applications submitted per month and simula
 ✅ Milestone 3 – Predictive Modeling
 
 This phase introduces machine learning models to estimate visa processing time.
-
 Models Implemented
-
 Multiple regression models were trained and compared:
-
 Linear Regression
-
 Random Forest
-
 XGBoost
-
 CatBoost
 
 Evaluation metrics used:
-
 MAE  – Mean Absolute Error
 RMSE – Root Mean Squared Error
 R²   – Coefficient of Determination
 
 Hyperparameter Tuning
-
 The best performing model (XGBoost) was optimized using RandomizedSearchCV.
-
 Example tuned parameters:
-
 n_estimators
 max_depth
 learning_rate
@@ -233,7 +204,6 @@ Model predictions were interpreted using SHAP.
 SHAP helps explain:
 
 Which features increase processing time
-
 Which features decrease processing time
 
 Generated outputs:
@@ -249,7 +219,6 @@ Example output:
 
 Estimated Processing Time: 125 days
 Confidence Range: 100 – 150 days
-
 
 The prediction range accounts for model uncertainty.
 
