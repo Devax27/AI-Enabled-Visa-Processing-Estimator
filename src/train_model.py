@@ -250,6 +250,17 @@ def main():
         X_test,
         y_test
     )
+    from sklearn.metrics import r2_score
+
+    train_pred = best_model.predict(X_train)
+    test_pred = best_model.predict(X_test)
+
+    train_r2 = r2_score(y_train, train_pred)
+    test_r2 = r2_score(y_test, test_pred)
+
+    print("\nOverfitting Check")
+    print("Train R2:", round(train_r2, 3))
+    print("Test R2:", round(test_r2, 3))
 
     # Replace best model if tuned one is better
     if rmse_tuned < best_rmse:
