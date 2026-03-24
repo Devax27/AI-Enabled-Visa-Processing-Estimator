@@ -11,3 +11,4 @@ streamlit
 shap
 fastapi
 uvicorn
+requests
