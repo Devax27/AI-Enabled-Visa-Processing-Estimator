@@ -12,3 +12,4 @@ shap
 fastapi
 uvicorn
 requests
+altair==4.2.2
