@@ -7,7 +7,7 @@ plotly
 xgboost
 catboost
 joblib
-streamlit
+streamlit==1.32.0
 shap
 fastapi
 uvicorn
