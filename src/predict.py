@@ -1,79 +1,79 @@
-import os
 import joblib
 import pandas as pd
+import os
 
-# -----------------------------
-# Paths
-# -----------------------------
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+model = joblib.load(os.path.join(BASE_DIR, "models", "visa_model.pkl"))
+model_features = joblib.load(os.path.join(BASE_DIR, "models", "model_features.pkl"))
+rmse = joblib.load(os.path.join(BASE_DIR, "models", "model_rmse.pkl"))
 
-MODEL_PATH = os.path.join(BASE_DIR, "..", "models", "visa_model.pkl")
-RMSE_PATH = os.path.join(BASE_DIR, "..", "models", "model_rmse.pkl")
-FEATURES_PATH = os.path.join(BASE_DIR, "..", "models", "model_features.pkl")
+# -------------------------------
+# PREPROCESS INPUT
+# -------------------------------
+def preprocess_input(data):
+    df = pd.DataFrame(columns=model_features)
 
-# -----------------------------
-# Load Model Artifacts
-# -----------------------------
+    # Basic inputs
+    df.loc[0, "year"] = data.get("year", 0)
+    df.loc[0, "month"] = data.get("month", 0)
+    df.loc[0, "quarter"] = data.get("quarter", 0)
+    df.loc[0, "prevailing_wage_submitted"] = data.get("wage", 0)
 
-model = joblib.load(MODEL_PATH)
-rmse = joblib.load(RMSE_PATH)
-model_features = joblib.load(FEATURES_PATH)
+    # -------------------------------
+    # OPTIONAL: VISA STATUS ENCODING
+    # -------------------------------
+    status = data.get("visa_status")
 
-print("Model loaded successfully.")
+    if status == "Denied" and "visa_status_denied" in df.columns:
+        df.loc[0, "visa_status_denied"] = 1
+
+    elif status == "Withdrawn" and "visa_status_withdrawn" in df.columns:
+        df.loc[0, "visa_status_withdrawn"] = 1
+
+    # -------------------------------
+    # OPTIONAL: UNIT ENCODING
+    # -------------------------------
+    unit_map = {
+        "Year": "prevailing_wage_submitted_unit_year",
+        "Month": "prevailing_wage_submitted_unit_month",
+        "Week": "prevailing_wage_submitted_unit_week",
+        "Hour": "prevailing_wage_submitted_unit_hour"
+    }
+
+    unit = data.get("unit")
+
+    if unit in unit_map and unit_map[unit] in df.columns:
+        df.loc[0, unit_map[unit]] = 1
+
+    # -------------------------------
+    # CLEANING
+    # -------------------------------
+    df = df.fillna(0).infer_objects(copy=False)
+    df = df.apply(pd.to_numeric, errors="coerce").fillna(0)
+
+    return df
 
 
-# -----------------------------
-# Prediction Function
-# -----------------------------
-
+# -------------------------------
+# PREDICTION FUNCTION
+# -------------------------------
 def predict_processing_time(input_data):
+    try:
+        df = preprocess_input(input_data)
 
-    # Convert user input to dataframe
-    df = pd.DataFrame([input_data])
+        prediction = float(model.predict(df)[0])
 
-    # Create empty dataframe with all training features
-    full_df = pd.DataFrame(columns=model_features)
+        confidence = max(rmse * 0.25, prediction * 0.1)
 
-    # Add user input
-    full_df = pd.concat([full_df, df], ignore_index=True)
+        lower = prediction - confidence
+        upper = prediction + confidence
 
-    # Fill missing columns
-    full_df = full_df.fillna(0)
+        return {
+            "predicted_status": input_data.get("visa_status", "Unknown"),
+            "estimated_processing_days": round(prediction, 2),
+            "confidence_range": f"{round(lower)} - {round(upper)} days"
+        }
 
-    # Convert everything to numeric
-    full_df = full_df.astype(float)
-
-    # Prediction
-    prediction = float(model.predict(full_df)[0])
-
-
-    # Confidence interval using RMSE
-    confidence = max(rmse * 0.25, prediction * 0.1)
-
-    lower = prediction - confidence
-    upper = prediction + confidence
-    
-    return {
-        "estimated_processing_days": round(prediction, 2),
-        "confidence_range": f"{round(lower)} - {round(upper)} days"
-    }
-
-
-# -----------------------------
-# Test Example
-# -----------------------------
-
-if __name__ == "__main__":
-
-    sample_input = {
-        "year": 2023,
-        "month": 5,
-        "quarter": 2
-    }
-
-    result = predict_processing_time(sample_input)
-
-    print("\nPrediction Result:")
-    print(result)
-
+    except Exception as e:
+        return {"error": str(e)}
