@@ -9,3 +9,5 @@ catboost
 joblib
 streamlit
 shap
+fastapi
+uvicorn

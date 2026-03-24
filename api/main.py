@@ -12,11 +12,11 @@ class InputData(BaseModel):
     visa_status: str
     wage: float
     unit: str
+
 @app.get("/")
 def home():
-    return {"message": "API is running"}
+    return {"message": "API running"}
 
 @app.post("/predict")
 def predict(data: InputData):
-    result = predict_processing_time(data.dict())
-    return result
+    return predict_processing_time(data.dict())

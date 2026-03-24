@@ -1,10 +1,9 @@
 import streamlit as st
-from src.predict import predict_processing_time
+import requests
 
 st.set_page_config(page_title="Visa AI", layout="centered")
 
 st.title("🌍 Visa Processing Time Estimator")
-
 st.markdown("Enter details to predict processing time")
 
 # Inputs
@@ -31,19 +30,25 @@ if st.button("🚀 Predict"):
 
     try:
         with st.spinner("Predicting..."):
-            result = predict_processing_time(payload)
+
+            # 🔥 CALL AWS API
+            response = requests.post(
+                "http://51.21.191.18:8000/predict",
+                json=payload,
+                timeout=10
+            )
+
+            result = response.json()
 
         st.success("Prediction Complete ✅")
 
         # -------------------------------
-        # SMART OUTPUT STARTS HERE
+        # SMART OUTPUT
         # -------------------------------
         st.subheader("📊 Prediction Result")
 
-        # Show predicted visa outcome
         st.write("Predicted Visa Outcome:", result.get("predicted_status", "N/A"))
 
-        # Smart metric based on prediction
         status = result.get("predicted_status", "")
 
         if status == "Denied":
@@ -55,7 +60,6 @@ if st.button("🚀 Predict"):
         else:
             st.metric("✅ Time to Approval", result["estimated_processing_days"])
 
-        # Confidence range
         st.info(f"Confidence Range: {result['confidence_range']}")
 
     except Exception as e:
