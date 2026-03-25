@@ -1,4 +1,8 @@
 import streamlit as st
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.predict import predict_processing_time
 
 st.set_page_config(page_title="Visa AI", layout="centered")
