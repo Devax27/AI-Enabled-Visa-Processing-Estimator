@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import RandomizedSearchCV
 
-
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.preprocessing import StandardScaler
@@ -72,6 +71,10 @@ def load_data():
     df["month"] = df["case_received_date"].dt.month
     df["quarter"] = df["case_received_date"].dt.quarter
 
+    # ✅ ADDED (MANDATORY FIX)
+    df["day"] = df["case_received_date"].dt.day
+    df["weekday"] = df["case_received_date"].dt.weekday
+
     df["season"] = df["month"].apply(
         lambda x: "Peak" if x in [1, 2, 12] else "Off-Peak"
     )
@@ -85,14 +88,19 @@ def load_data():
         "decision_date",
         "case_number",
         "employer_name",
-        "job_title",
-        "work_city"
+        "job_title"
+        # ❌ work_city NOT dropped (IMPORTANT FIX)
     ], errors="ignore")
 
     # --------------------------------
     # One-hot encoding
     # --------------------------------
+    # 🔥 LIMIT WORK_CITY (VERY IMPORTANT)
+    top_cities = df["work_city"].value_counts().nlargest(20).index
 
+    df["work_city"] = df["work_city"].apply(
+        lambda x: x if x in top_cities else "Other"
+    )
     df = pd.get_dummies(df, drop_first=True)
 
     print("Dataset shape after encoding:", df.shape)
@@ -250,7 +258,6 @@ def main():
         X_test,
         y_test
     )
-    from sklearn.metrics import r2_score
 
     train_pred = best_model.predict(X_train)
     test_pred = best_model.predict(X_test)
@@ -262,88 +269,19 @@ def main():
     print("Train R2:", round(train_r2, 3))
     print("Test R2:", round(test_r2, 3))
 
-    # Replace best model if tuned one is better
     if rmse_tuned < best_rmse:
         best_model = best_xgb
         best_rmse = rmse_tuned
         print("\nTuned model selected as final model.")
 
-
     # --------------------------------
-    # Feature Importance
-    # --------------------------------
-
-    if hasattr(best_model, "feature_importances_"):
-
-        importances = best_model.feature_importances_
-
-        feature_names = X.columns
-
-        importance_df = pd.DataFrame({
-            "feature": feature_names,
-            "importance": importances
-        }).sort_values(by="importance", ascending=False)
-
-        print("\nTop 10 Important Features:")
-        print(importance_df.head(10))
-
-        plt.figure(figsize=(10,6))
-
-        sns.barplot(
-            x="importance",
-            y="feature",
-            data=importance_df.head(15)
-        )
-
-        plt.title("Top 15 Feature Importance")
-
-        plt.tight_layout()
-
-        plt.savefig(os.path.join(OUTPUT_DIR, "feature_importance.png"))
-
-        plt.close()
-
-    # --------------------------------
-    # SHAP Explainability
-    # --------------------------------
-
-    print("\nGenerating SHAP Explainability...")
-
-    # Convert all features to numeric for SHAP
-    X_train_shap = X_train.astype(float)
-    X_test_shap = X_test.astype(float)
-
-    # Use TreeExplainer (best for XGBoost)
-    explainer = shap.TreeExplainer(best_model)
-
-    # To avoid memory issues use sample
-    sample_data = X_test_shap.sample(2000, random_state=42)
-
-    shap_values = explainer.shap_values(sample_data)
-
-    # Summary plot
-    shap.summary_plot(shap_values, sample_data, show=False)
-
-    plt.tight_layout()
-    plt.savefig(os.path.join(OUTPUT_DIR, "shap_summary.png"))
-    plt.close()
-
-    # Feature importance plot
-    shap.summary_plot(shap_values, sample_data, plot_type="bar", show=False)
-
-    plt.tight_layout()
-    plt.savefig(os.path.join(OUTPUT_DIR, "shap_feature_importance.png"))
-    plt.close()
-
-    # --------------------------------
-    # Save Model + RMSE
+    # Save Model
     # --------------------------------
 
     joblib.dump(best_model, os.path.join(MODEL_DIR, "visa_model.pkl"))
     joblib.dump(scaler, os.path.join(MODEL_DIR, "scaler.pkl"))
     joblib.dump(best_rmse, os.path.join(MODEL_DIR, "model_rmse.pkl"))
     joblib.dump(feature_names, os.path.join(MODEL_DIR, "model_features.pkl"))
-
 
     print("\nModel saved successfully!")
     print("RMSE saved for confidence interval prediction")
