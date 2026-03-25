@@ -1,5 +1,5 @@
 import streamlit as st
-import requests
+from src.predict import predict_processing_time
 
 st.set_page_config(page_title="Visa AI", layout="centered")
 
@@ -31,20 +31,11 @@ if st.button("🚀 Predict"):
     try:
         with st.spinner("Predicting..."):
 
-            # 🔥 CALL AWS API
-            response = requests.post(
-                "http://51.21.191.18:8000/predict",
-                json=payload,
-                timeout=10
-            )
-
-            result = response.json()
+            # 🔥 DIRECT MODEL CALL (NO API)
+            result = predict_processing_time(payload)
 
         st.success("Prediction Complete ✅")
 
-        # -------------------------------
-        # SMART OUTPUT
-        # -------------------------------
         st.subheader("📊 Prediction Result")
 
         st.write("Predicted Visa Outcome:", result.get("predicted_status", "N/A"))
