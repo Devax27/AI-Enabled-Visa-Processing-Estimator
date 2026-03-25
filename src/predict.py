@@ -4,11 +4,19 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-model = joblib.load(os.path.join(BASE_DIR, "models", "visa_model.pkl"))
-model_features = joblib.load(os.path.join(BASE_DIR, "models", "model_features.pkl"))
-rmse = joblib.load(os.path.join(BASE_DIR, "models", "model_rmse.pkl"))
+# ✅ LOAD ALL MODELS PROPERLY
+def load_model():
+    model_path = os.path.join(BASE_DIR, "models", "visa_model.pkl")
+    return joblib.load(model_path)
 
-def preprocess_input(data):
+def load_features():
+    return joblib.load(os.path.join(BASE_DIR, "models", "model_features.pkl"))
+
+def load_rmse():
+    return joblib.load(os.path.join(BASE_DIR, "models", "model_rmse.pkl"))
+
+
+def preprocess_input(data, model_features):
     df = pd.DataFrame(columns=model_features)
 
     df.loc[0, "year"] = data.get("year", 0)
@@ -44,7 +52,12 @@ def preprocess_input(data):
 
 def predict_processing_time(input_data):
     try:
-        df = preprocess_input(input_data)
+        # ✅ LOAD EVERYTHING HERE
+        model = load_model()
+        model_features = load_features()
+        rmse = load_rmse()
+
+        df = preprocess_input(input_data, model_features)
 
         prediction = float(model.predict(df)[0])
 
