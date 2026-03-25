@@ -11,23 +11,23 @@ st.title("🌍 Visa Processing Time Estimator")
 st.markdown("Enter details to predict processing time")
 
 year = st.number_input("Year", value=2023)
-month = st.selectbox("Month", list(range(1, 13)))
-quarter = st.selectbox("Quarter", [1, 2, 3, 4])
+
 visa_type = st.selectbox("Visa Type", ["H1B", "L1", "B1", "F1"])
-visa_status = st.selectbox("Visa Status", ["Certified", "Denied", "Withdrawn"])
-wage = st.number_input("Wage Submitted", value=50000)
-unit = st.selectbox("Wage Unit", ["Year", "Month", "Week", "Hour"])
+
+visa_status = st.selectbox("Visa Status", ["certified", "denied", "withdrawn"])
+
+city = st.text_input("Working City", "New York")
+
+case_received_date = st.date_input("Case Received Date")
 
 if st.button("🚀 Predict"):
 
     payload = {
         "year": int(year),
-        "month": int(month),
-        "quarter": int(quarter),
         "visa_type": visa_type,
         "visa_status": visa_status,
-        "wage": wage,
-        "unit": unit
+        "city": city,
+        "case_received_date": str(case_received_date)
     }
 
     try:

@@ -4,10 +4,9 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# ✅ LOAD ALL MODELS PROPERLY
+# ✅ LOAD MODEL
 def load_model():
-    model_path = os.path.join(BASE_DIR, "models", "visa_model.pkl")
-    return joblib.load(model_path)
+    return joblib.load(os.path.join(BASE_DIR, "models", "visa_model.pkl"))
 
 def load_features():
     return joblib.load(os.path.join(BASE_DIR, "models", "model_features.pkl"))
@@ -19,40 +18,49 @@ def load_rmse():
 def preprocess_input(data, model_features):
     df = pd.DataFrame(columns=model_features)
 
+    # ✅ Basic feature
     df.loc[0, "year"] = data.get("year", 0)
-    df.loc[0, "month"] = data.get("month", 0)
-    df.loc[0, "quarter"] = data.get("quarter", 0)
-    df.loc[0, "prevailing_wage_submitted"] = data.get("wage", 0)
 
-    # visa status encoding
-    status = data.get("visa_status")
+    # ✅ CASE_RECEIVED_DATE → derived features
+    date = pd.to_datetime(data.get("case_received_date"))
 
-    if status == "Denied" and "visa_status_denied" in df.columns:
-        df.loc[0, "visa_status_denied"] = 1
-    elif status == "Withdrawn" and "visa_status_withdrawn" in df.columns:
-        df.loc[0, "visa_status_withdrawn"] = 1
+    if "month" in df.columns:
+        df.loc[0, "month"] = date.month
+    if "day" in df.columns:
+        df.loc[0, "day"] = date.day
+    if "weekday" in df.columns:
+        df.loc[0, "weekday"] = date.weekday()
 
-    # unit encoding
-    unit_map = {
-        "Year": "prevailing_wage_submitted_unit_year",
-        "Month": "prevailing_wage_submitted_unit_month",
-        "Week": "prevailing_wage_submitted_unit_week",
-        "Hour": "prevailing_wage_submitted_unit_hour"
-    }
+    # ✅ VISA STATUS
+    status = data.get("visa_status", "").lower()
 
-    unit = data.get("unit")
-    if unit in unit_map and unit_map[unit] in df.columns:
-        df.loc[0, unit_map[unit]] = 1
+    if status == "denied" and "VISA_STATUS_denied" in df.columns:
+        df.loc[0, "VISA_STATUS_denied"] = 1
+    elif status == "withdrawn" and "VISA_STATUS_withdrawn" in df.columns:
+        df.loc[0, "VISA_STATUS_withdrawn"] = 1
+    elif status == "certified" and "VISA_STATUS_certified" in df.columns:
+        df.loc[0, "VISA_STATUS_certified"] = 1
 
-    df = df.fillna(0).infer_objects(copy=False)
-    df = df.apply(pd.to_numeric, errors="coerce").fillna(0)
+    # ✅ VISA CLASS
+    visa = data.get("visa_type", "")
+    col_name = f"VISA_CLASS_{visa}"
+    if col_name in df.columns:
+        df.loc[0, col_name] = 1
+
+    # ✅ WORK CITY
+    city = data.get("city", "")
+    city_col = f"WORK_CITY_{city}"
+    if city_col in df.columns:
+        df.loc[0, city_col] = 1
+
+    # Fill missing
+    df = df.fillna(0)
 
     return df
 
 
 def predict_processing_time(input_data):
     try:
-        # ✅ LOAD EVERYTHING HERE
         model = load_model()
         model_features = load_features()
         rmse = load_rmse()
