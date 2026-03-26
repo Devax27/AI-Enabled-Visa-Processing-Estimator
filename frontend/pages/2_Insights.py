@@ -3,7 +3,7 @@ import pandas as pd
 
 st.title("📊 Visa Insights")
 
-df = pd.read_csv("data/VisaFile.csv")
+df = pd.read_csv("../data/VisaFile.csv")
 
 st.subheader("Top Visa Types")
 st.bar_chart(df["VISA_CLASS"].value_counts().head(10))
