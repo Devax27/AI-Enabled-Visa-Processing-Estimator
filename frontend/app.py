@@ -9,7 +9,24 @@ from src.predict import predict_processing_time
 # PAGE CONFIG
 # -----------------------
 st.set_page_config(page_title="Visa AI", page_icon="🌍", layout="centered")
+st.set_page_config(page_title="Visa AI", page_icon="🌍")
 
+st.title("🌍 Visa AI System")
+st.markdown("### 🚀 AI-Powered Visa Processing Platform")
+
+st.markdown("""
+## 🔹 Features
+- 📊 Predict Visa Processing Time
+- 📈 Insights & Analytics
+- 📄 Download Report
+- 🤖 Machine Learning Model
+
+---
+
+### 👉 Use sidebar to navigate
+""")
+
+st.success("✅ System Ready")
 # -----------------------
 # CUSTOM CSS (🔥 PREMIUM LOOK)
 # -----------------------
