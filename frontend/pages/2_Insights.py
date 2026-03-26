@@ -1,14 +1,17 @@
 import streamlit as st
 import pandas as pd
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-DATA_PATH = os.path.join(BASE_DIR, "data", "VisaFile.csv")
-
 
 st.title("📊 Visa Insights")
 
-df = pd.read_csv(DATA_PATH)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+DATA_PATH = os.path.join(BASE_DIR, "data", "VisaFile_small.csv")
 
+@st.cache_data
+def load_data():
+    return pd.read_csv(DATA_PATH, encoding="latin1")   # 🔥 IMPORTANT
+
+df = load_data()
 
 st.subheader("Top Visa Types")
 st.bar_chart(df["VISA_CLASS"].value_counts().head(10))
