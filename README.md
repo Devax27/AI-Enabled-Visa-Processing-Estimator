@@ -24,32 +24,14 @@ In addition, the application provides an interactive dashboard for data insights
 
 ## ✨ Key Features
 
-### 🔹 Visa Processing Time Prediction
-- Predicts processing time using trained ML model  
-- Takes real-world inputs (visa type, status, city, date)  
-- Provides estimated processing days  
-
-### 🔹 Confidence Range Estimation
-- Displays lower and upper bounds  
-- Helps users understand prediction uncertainty  
-
-### 🔹 Multi-Page Web Application
-- Home page overview  
-- Prediction interface  
-- Insights dashboard  
-- Report download page  
-
-### 🔹 Interactive Insights Dashboard
-- Visa type distribution  
-- Visa status trends  
-- Top working cities  
-- Data-driven visualizations  
-
-### 🔹 PDF Report Generation
-- Generates downloadable summary report  
-- Useful for documentation and analysis  
-
----
+- 🚀 AI-powered visa processing time prediction using real-world data  
+- 📊 Intelligent feature engineering with date-based and categorical insights  
+- ⚡ Optimized model handling high-dimensional data efficiently  
+- 🌐 Multi-page interactive web application with seamless navigation  
+- 📈 Dynamic insights dashboard with real-time visual analytics  
+- 📄 Smart PDF report generation with prediction summary  
+- 🧠 End-to-end ML pipeline (Data → Training → Deployment)  
+- ☁️ Cloud deployment with scalable architecture  
 
 ## 🧠 Machine Learning Pipeline
 

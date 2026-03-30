@@ -1,42 +1,96 @@
 import streamlit as st
 
-st.set_page_config(page_title="Visa AI", page_icon="🌍")
+st.set_page_config(page_title="Visa AI", page_icon="🌍", layout="centered")
 
+# -----------------------
+# PREMIUM CSS (OFFICIAL LOOK)
+# -----------------------
 st.markdown("""
 <style>
-.main {
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    color: white;
+
+/* Background */
+body {
+    background-color: #f4f7fb;
 }
 
+/* Main container */
+.main {
+    background-color: #f4f7fb;
+}
+
+/* Title */
 h1 {
     text-align: center;
-    color: #00ffd5;
+    color: #003366;
+    font-weight: bold;
 }
 
+/* Subtitle */
+.subtitle {
+    text-align: center;
+    color: #4a5568;
+}
+
+/* Card */
 .card {
-    background: rgba(255,255,255,0.05);
-    padding: 20px;
-    border-radius: 15px;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.08);
     margin-top: 20px;
 }
+
+/* Button */
+.stButton>button {
+    width: 100%;
+    height: 3em;
+    border-radius: 8px;
+    background-color: #0056b3;
+    color: white;
+    font-weight: bold;
+    border: none;
+}
+
+/* Input fields */
+.stTextInput input, .stSelectbox div {
+    border-radius: 8px !important;
+}
+
+/* Divider */
+hr {
+    border: 1px solid #e2e8f0;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
-st.title("🌍 Visa AI System")
+# -----------------------
+# HEADER
+# -----------------------
+st.markdown("<h1>🌍 Visa Processing System</h1>", unsafe_allow_html=True)
+st.markdown("<p class='subtitle'>Official-style AI platform for visa processing insights</p>", unsafe_allow_html=True)
 
-st.markdown("### 🚀 Smart Visa Processing Prediction Platform")
+st.markdown("---")
 
+# -----------------------
+# CONTENT CARD
+# -----------------------
 st.markdown("""
 <div class="card">
-<h3>✨ What this system does</h3>
+<h3>📌 About the System</h3>
+<p>
+This platform uses machine learning to estimate visa processing time based on historical data.
+It provides insights and predictive analytics to help applicants better understand expected timelines.
+</p>
+
+<h4>✨ Key Capabilities</h4>
 <ul>
-<li>Predict visa processing time</li>
-<li>Show intelligent insights</li>
-<li>Generate downloadable reports</li>
-<li>Provide real-time analytics</li>
+<li>✔ Visa processing time prediction</li>
+<li>✔ Data-driven insights dashboard</li>
+<li>✔ Report generation</li>
+<li>✔ Real-time analysis</li>
 </ul>
 </div>
 """, unsafe_allow_html=True)
 
-st.success("Use sidebar to explore features 🚀")
+st.success("Use the sidebar to navigate through the system")
