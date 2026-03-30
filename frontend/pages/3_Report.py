@@ -4,7 +4,7 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
 import datetime
 
-st.title("📄 Generate Report")
+st.title("📄 Download Report")
 
 def generate_pdf(data):
     file_name = "visa_report.pdf"
@@ -14,19 +14,19 @@ def generate_pdf(data):
 
     content = []
 
-    content.append(Paragraph("Visa AI Report", styles["Title"]))
+    content.append(Paragraph("Visa Processing Report", styles["Title"]))
     content.append(Spacer(1, 10))
 
     content.append(Paragraph(f"Generated on: {datetime.datetime.now()}", styles["Normal"]))
     content.append(Spacer(1, 10))
 
-    content.append(Paragraph("User Input:", styles["Heading2"]))
+    content.append(Paragraph("User Input", styles["Heading2"]))
     content.append(Paragraph(f"Visa Type: {data['visa_type']}", styles["Normal"]))
     content.append(Paragraph(f"Visa Status: {data['visa_status']}", styles["Normal"]))
     content.append(Paragraph(f"City: {data['city']}", styles["Normal"]))
     content.append(Spacer(1, 10))
 
-    content.append(Paragraph("Prediction:", styles["Heading2"]))
+    content.append(Paragraph("Prediction Result", styles["Heading2"]))
     content.append(Paragraph(f"Processing Days: {data['days']}", styles["Normal"]))
     content.append(Paragraph(f"Confidence Range: {data['range']}", styles["Normal"]))
 
@@ -46,4 +46,4 @@ if "last_result" in st.session_state:
             st.download_button("Download PDF", f, file_name="visa_report.pdf")
 
 else:
-    st.warning("⚠️ First make a prediction to generate report")
+    st.warning("⚠️ Please make a prediction first")
