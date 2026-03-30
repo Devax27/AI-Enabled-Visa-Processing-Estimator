@@ -21,6 +21,13 @@ if st.button("Predict"):
     }
 
     result = predict_processing_time(payload)
+    st.session_state["last_result"] = {
+    "visa_type": visa_type,
+    "visa_status": visa_status,
+    "city": city,
+    "days": result["estimated_processing_days"],
+    "range": result["confidence_range"]
+    }
 
     if "error" in result:
         st.error(result["error"])
