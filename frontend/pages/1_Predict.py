@@ -2,7 +2,10 @@ import streamlit as st
 import sys
 import os
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# 🔥 FIX: go to ROOT folder (IMPORTANT)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(BASE_DIR)
+
 from src.predict import predict_processing_time
 
 st.title("📋 Visa Prediction")
