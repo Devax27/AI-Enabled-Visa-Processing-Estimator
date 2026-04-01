@@ -7,7 +7,7 @@ An AI-powered web application that predicts visa processing time using machine l
 ## 🔗 Live Demo
 
 ### 🌐 Streamlit Web App  
-https://ai-enabled-visa-processing-estimator.streamlit.app/  
+https://ai-enabled-visa-processing-estimator.streamlit.app
 
 ---
 
