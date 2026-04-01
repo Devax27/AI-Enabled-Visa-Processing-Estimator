@@ -1,25 +1,69 @@
 import streamlit as st
+import shap
+import joblib
 import pandas as pd
 import os
+import sys
+import matplotlib.pyplot as plt
 
-BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+# --------------------------------
+# FIX PATH (VERY IMPORTANT)
+# --------------------------------
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+sys.path.append(ROOT_DIR)
 
-st.title("📊 Model Insights")
+from src.predict import preprocess_input
 
-st.markdown("### Correlation Heatmap")
+# --------------------------------
+# LOAD MODEL + FEATURES
+# --------------------------------
+model = joblib.load(os.path.join(ROOT_DIR, "models", "visa_model.pkl"))
+features = joblib.load(os.path.join(ROOT_DIR, "models", "model_features.pkl"))
 
-image_path = os.path.join(BASE_DIR, "outputs", "correlation_heatmap.png")
+# --------------------------------
+# UI
+# --------------------------------
+st.set_page_config(page_title="Insights", layout="wide")
 
-if os.path.exists(image_path):
-    st.image(image_path, caption="Feature Correlation Heatmap")
-else:
-    st.warning("Run EDA first to generate insights.")
+st.title("📊 Model Explainability (SHAP)")
+st.markdown("Understand why the model predicted this processing time")
 
-st.markdown("""
-### Key Insights:
+# --------------------------------
+# USER INPUT
+# --------------------------------
+visa_type = st.selectbox("Visa Type", ["H1B", "L1", "F1", "B1"])
+visa_status = st.selectbox("Visa Status", ["Certified", "Denied"])
+city = st.text_input("Work City", "New York")
+date = st.date_input("Case Received Date")
 
-- Visa type strongly affects processing time  
-- Seasonal patterns impact delays  
-- High application volume increases waiting time  
-- Location plays a major role  
-""")
+# --------------------------------
+# INPUT DATA
+# --------------------------------
+input_data = {
+    "visa_type": visa_type,
+    "visa_status": visa_status,
+    "city": city,
+    "case_received_date": str(date)
+}
+
+# --------------------------------
+# PREPROCESS
+# --------------------------------
+df = preprocess_input(input_data, features)
+
+# --------------------------------
+# SHAP EXPLAINER
+# --------------------------------
+explainer = shap.Explainer(model)
+shap_values = explainer(df)
+
+# --------------------------------
+# WATERFALL PLOT (FIXED VERSION)
+# --------------------------------
+st.subheader("🔍 Feature Impact on Prediction")
+
+plt.figure()
+shap.plots.waterfall(shap_values[0], show=False)
+
+st.pyplot(plt.gcf())
+plt.clf()
