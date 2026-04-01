@@ -5,7 +5,7 @@ import sys
 import os
 
 # Fix import path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..") ))
 
 from src.predict import predict_processing_time
 
