@@ -9,4 +9,4 @@ catboost_info/
 # Ignore virtual environment
 venv/
 outputs/*.html
-
+.streamlit/secrets.toml
