@@ -8,4 +8,4 @@ joblib
 plotly
 matplotlib
 shap
-
+openai
