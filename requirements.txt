@@ -2,7 +2,10 @@ streamlit
 pandas
 numpy
 scikit-learn
-joblib
 xgboost
 catboost
-reportlab
+joblib
+plotly
+matplotlib
+shap
+
