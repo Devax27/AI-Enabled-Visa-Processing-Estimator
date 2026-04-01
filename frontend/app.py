@@ -1,113 +1,141 @@
 import streamlit as st
+import plotly.express as px
+from datetime import date
+from src.predict import predict_processing_time
 
-st.set_page_config(page_title="Visa AI", page_icon="🌍", layout="centered")
+# --------------------------------
+# Page Config
+# --------------------------------
+st.set_page_config(
+    page_title="Visa AI Estimator",
+    layout="wide"
+)
 
-# -----------------------
-# 🌈 PREMIUM CSS + ANIMATION
-# -----------------------
+# --------------------------------
+# Custom Styling (Beautiful UI)
+# --------------------------------
 st.markdown("""
 <style>
-
-/* Background Gradient */
-.main {
-    background: linear-gradient(135deg, #0f172a, #1e3a8a, #0ea5e9);
-    background-size: 400% 400%;
-    animation: gradientBG 10s ease infinite;
-}
-
-/* Animation */
-@keyframes gradientBG {
-    0% {background-position: 0% 50%;}
-    50% {background-position: 100% 50%;}
-    100% {background-position: 0% 50%;}
-}
-
-/* Title */
-h1 {
-    text-align: center;
-    color: #ffffff;
-    font-weight: 700;
-}
-
-/* Subtitle */
-.subtitle {
-    text-align: center;
-    color: #e2e8f0;
-    font-size: 1.1rem;
-}
-
-/* Glass Card */
-.card {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 25px;
-    border-radius: 16px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0px 8px 25px rgba(0,0,0,0.2);
-    margin-top: 20px;
-}
-
-/* Buttons */
-.stButton>button {
-    width: 100%;
-    border-radius: 12px;
-    height: 3em;
-    background: linear-gradient(90deg, #22c55e, #06b6d4);
+.stApp {
+    background-color: #0e1117;
     color: white;
-    font-weight: bold;
-    border: none;
 }
-
-/* Inputs */
-.stTextInput input, .stSelectbox div {
-    border-radius: 10px !important;
+h1, h2, h3 {
+    color: #00d4ff;
 }
-
-/* Divider */
-hr {
-    border: 1px solid rgba(255,255,255,0.2);
-}
-
 </style>
 """, unsafe_allow_html=True)
 
-# -----------------------
-# HEADER
-# -----------------------
-st.markdown("<h1>🌍 Visa AI System</h1>", unsafe_allow_html=True)
-st.markdown("<p class='subtitle'>Smart visa processing prediction powered by AI 🚀</p>", unsafe_allow_html=True)
+# --------------------------------
+# Title
+# --------------------------------
+st.title("🌍 AI Visa Processing Time Estimator")
+st.markdown("### Predict visa processing time using Machine Learning + AI")
 
+# --------------------------------
+# Sidebar Inputs
+# --------------------------------
+st.sidebar.header("📋 Enter Visa Details")
+
+visa_type = st.sidebar.selectbox(
+    "Visa Type",
+    ["H1B", "L1", "F1", "B1"]
+)
+
+visa_status = st.sidebar.selectbox(
+    "Visa Status",
+    ["Certified", "Denied"]
+)
+
+city = st.sidebar.text_input(
+    "Work City",
+    "New York"
+)
+
+received_date = st.sidebar.date_input(
+    "Case Received Date",
+    date.today()
+)
+
+# --------------------------------
+# Prediction Button
+# --------------------------------
+if st.sidebar.button("🚀 Predict Processing Time"):
+
+    input_data = {
+        "visa_type": visa_type,
+        "visa_status": visa_status,
+        "city": city,
+        "case_received_date": str(received_date)
+    }
+
+    result = predict_processing_time(input_data)
+
+    if "error" in result:
+        st.error(result["error"])
+    else:
+        st.success("✅ Prediction Complete")
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.metric(
+                "Estimated Processing Days",
+                result["estimated_processing_days"]
+            )
+
+        with col2:
+            st.metric(
+                "Confidence Range",
+                result["confidence_range"]
+            )
+
+        # --------------------------------
+        # Visualization
+        # --------------------------------
+        st.subheader("📊 Processing Time Visualization")
+
+        fig = px.bar(
+            x=["Processing Time"],
+            y=[result["estimated_processing_days"]],
+            title="Estimated Processing Time"
+        )
+
+        st.plotly_chart(fig)
+
+# --------------------------------
+# Agentic AI Assistant (Unique Feature)
+# --------------------------------
+st.subheader("🤖 AI Visa Assistant")
+
+user_query = st.text_input(
+    "Ask anything about visa processing (e.g., delays, tips, approval chances)"
+)
+
+if st.button("Ask AI"):
+
+    if user_query.strip() == "":
+        st.warning("Please enter a question.")
+    else:
+        response = f"""
+        🔍 Based on your query:
+
+        👉 Visa Type: {visa_type}
+        👉 Location: {city}
+
+        💡 Insights:
+        - Processing times depend on workload and visa category
+        - Peak months (Dec–Feb) are slower
+        - Ensure documentation is complete
+
+        📌 Recommendation:
+        Apply early and track your application regularly.
+        """
+
+        st.info(response)
+
+# --------------------------------
+# Footer
+# --------------------------------
 st.markdown("---")
-
-# -----------------------
-# CONTENT CARD
-# -----------------------
-st.markdown("""
-<div class="card">
-<h3>✨ What this platform does</h3>
-<ul>
-<li>🚀 Predict visa processing time using ML</li>
-<li>📊 Show insights & trends</li>
-<li>📄 Generate downloadable reports</li>
-<li>⚡ Real-time prediction system</li>
-</ul>
-</div>
-""", unsafe_allow_html=True)
-
-st.markdown("""
-<div class="card">
-<h3>📌 How to use</h3>
-<ol>
-<li>Go to Predict page</li>
-<li>Enter your details</li>
-<li>Click predict</li>
-<li>View insights & download report</li>
-</ol>
-</div>
-""", unsafe_allow_html=True)
-
-# -----------------------
-# FOOTER EFFECT
-# -----------------------
-st.markdown("###")
-
-st.success("✨ Navigate using sidebar to explore features")
+st.markdown("Built with ❤️ using Machine Learning + Streamlit")
