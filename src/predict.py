@@ -14,6 +14,7 @@ def load_rmse():
     return joblib.load(os.path.join(BASE_DIR, "models", "model_rmse.pkl"))
 
 def preprocess_input(data, model_features):
+
     df = pd.DataFrame(columns=model_features)
 
     date = pd.to_datetime(data.get("case_received_date"))
@@ -24,7 +25,7 @@ def preprocess_input(data, model_features):
     df.loc[0, "day"] = date.day
     df.loc[0, "weekday"] = date.weekday()
 
-    # categorical encoding safely
+    # categorical encoding
     visa_col = f"visa_class_{data.get('visa_type').lower()}"
     status_col = f"visa_status_{data.get('visa_status').lower()}"
     city_col = f"work_city_{data.get('city').lower()}"
@@ -39,10 +40,15 @@ def preprocess_input(data, model_features):
         df.loc[0, city_col] = 1
 
     df = df.fillna(0)
+
+    # 🔥 VERY IMPORTANT FIX (XGBoost requires numeric)
+    df = df.astype(float)
+
     return df
 
 
 def predict_processing_time(input_data):
+
     try:
         model = load_model()
         features = load_features()
@@ -54,7 +60,6 @@ def predict_processing_time(input_data):
 
         conf = max(rmse * 0.25, pred * 0.1)
 
-        # ✅ FINAL FIX (no negative values)
         lower = max(0, pred - conf)
         upper = pred + conf
 

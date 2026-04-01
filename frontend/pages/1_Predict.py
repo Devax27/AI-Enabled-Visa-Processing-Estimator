@@ -4,20 +4,29 @@ from datetime import date
 import sys
 import os
 
-# Fix import path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..") ))
+# --------------------------------
+# FIX IMPORT PATH (VERY IMPORTANT)
+# --------------------------------
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+sys.path.append(ROOT_DIR)
 
 from src.predict import predict_processing_time
 
+# --------------------------------
+# UI
+# --------------------------------
+st.set_page_config(page_title="Prediction", layout="wide")
+
 st.title("🔮 Visa Processing Time Prediction")
 
-# Sidebar Inputs
+# Inputs
 visa_type = st.selectbox("Visa Type", ["H1B", "L1", "F1", "B1"])
 visa_status = st.selectbox("Visa Status", ["Certified", "Denied"])
 city = st.text_input("Work City", "New York")
 received_date = st.date_input("Case Received Date", date.today())
 
-if st.button("Predict"):
+# Prediction
+if st.button("🚀 Predict"):
 
     input_data = {
         "visa_type": visa_type,
@@ -31,7 +40,7 @@ if st.button("Predict"):
     if "error" in result:
         st.error(result["error"])
     else:
-        st.success("Prediction Complete")
+        st.success("✅ Prediction Complete")
 
         col1, col2 = st.columns(2)
 
@@ -42,6 +51,8 @@ if st.button("Predict"):
             st.metric("Confidence Range", result["confidence_range"])
 
         # Visualization
+        st.subheader("📊 Visualization")
+
         fig = px.bar(
             x=["Processing Time"],
             y=[result["estimated_processing_days"]],
