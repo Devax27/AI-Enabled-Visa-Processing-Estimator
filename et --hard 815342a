@@ -1,0 +1,90 @@
+[33m6ca7612[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Add chat bot
+[33m815342a[m[33m ([m[1;31morigin/main[m[33m)[m update requirements
+[33m7b09303[m Fix error
+[33m0009614[m fixed prediction errors
+[33m827af1b[m error fix
+[33m05fecbd[m Changes made in files
+[33m1cdb036[m Try new features
+[33m6dabfae[m Add some animation
+[33m2945963[m Fixed src path
+[33m0d37c4c[m resolve error
+[33m813a0a7[m Background enhancement
+[33m18771a3[m Updation
+[33m042ab57[m Update README.md
+[33m56ac7fd[m update readme
+[33m4a14e65[m Add documents
+[33m3578540[m change file
+[33m3d8c150[m data set samll
+[33m8c93ab1[m small copy of data for insight
+[33m1201a94[m remove data set from gitignore
+[33m1857c91[m Insight error resolve
+[33mf561386[m Insight error resolve
+[33m4f32d08[m added multi-page app
+[33m9fafbc8[m UI Final
+[33m37f07d5[m add xgboost dependency
+[33m14c694a[m Added Dev Container Folder
+[33mf9634b0[m fix negative confidence range
+[33m0057166[m updated predict.py with dataset features
+[33mf406c86[m fix model loading final
+[33me544311[m fix import path
+[33m057b888[m remove version pinning
+[33md80e86d[m final dependency fix
+[33ma25080b[m final final fix
+[33m7e112aa[m added packages
+[33m35b1df3[m added packages
+[33ma593c00[m fix python version + dependencies
+[33m424d8fa[m final fix
+[33mc467589[m fix deployment
+[33m1de7935[m final fix no api
+[33mf290385[m fix python version + streamlit compatibility
+[33m41affd7[m fix python version + streamlit compatibility
+[33m9a1e2da[m fix altair version for streamlit
+[33mc0748d2[m requests add
+[33m490499a[m final frontend with AWS API
+[33m2e1e5fa[m Fix deployment issue
+[33m8c1d3e0[m Final Streamlit app ready
+[33m3ea58e9[m Milestone 3: ML pipeline completed
+[33m9eb77a7[m Updated project document
+[33mda044c2[m Updated model and prediction logic
+[33m41c5b38[m Update README.md
+[33meade7e8[m Add Documentation
+[33m99e3f2b[m Ignore catboost training logs
+[33mada906f[m Refactor README for clarity and conciseness
+[33mf1b0d48[m Added gitignore
+[33ma5abcbc[m Milestone 3 completed: model training, hyperparameter tuning, SHAP explainability, prediction engine
+[33m8cee14c[m delete all new file
+[33m30bbb62[m Implement data loading and Random Forest model training
+[33m28f358e[m Step 0: project structured for modeling phase
+[33m242bf72[m Revise README for clarity and project updates
+[33m23083ce[m Milestone 2 finalized:  feature engineering and improved EDA
+[33m8ec54a8[m Milestone 2 updated: added feature engineering and new visualizations
+[33m0dd86e4[m Replaced groupby apply with transform for safe group-wise outlier capping
+[33m065a6ba[m Added IQR-based outlier capping to processing_time_days
+[33m5bcce73[m Removed interactive HTML file from repository
+[33maabf859[m Update Readme
+[33m414d3f1[m Add LICENSE file with MIT license terms
+[33m1a40b24[m Updated generated visualizations after encoding optimization
+[33m6e22695[m Optimized One-Hot Encoding for low-cardinality features
+[33m65adb29[m Update README.md
+[33mfc0a4e0[m Update .gitattributes
+[33m64e1a64[m Add .gitattributes to mark outputs as generated
+[33m179916b[m Updated gitignore to include outputs for evaluation
+[33mb256d7a[m Added outputs folder back for evaluation
+[33m50ad3ac[m Add EDA visualization instructions to README
+[33m99e90d6[m Removed generated outputs from tracking and updated EDA
+[33m8542504[m Revise README for AI-Enabled Visa Processing Estimator
+[33m66f9cf7[m Updated pairplot image
+[33m3cbabce[m Wrapped EDA script inside main() for production structure
+[33m2badbb8[m Fixed plot saving using dynamic OUTPUT_DIR path
+[33mc3bf970[m Restructured project with src and outputs folders
+[33md03d1ea[m Renamed files to follow Python naming conventions
+[33mdc80606[m Converted notebook to Python script, removed ipynb, improved data cleaning and EDA
+[33mc19e57d[m Added Advanced EDA and Feature INsights
+[33m4c6f75b[m Extended EDA with multi-column visualizations
+[33m2c7951d[m Add EDA notebook for visa processing time analysis
+[33m641df8f[m Remove dataset from repository and add gitignore
+[33mc3adaee[m Merge remote changes
+[33m93f9d70[m Initial commit
+[33m3ec00ba[m Revise README with updated project details and objectives
+[33mca9945f[m Revise README for AI Visa Processing Estimator
+[33me8d2ae3[m Initial commit
