@@ -1,46 +1,51 @@
 import streamlit as st
+import plotly.express as px
+from datetime import date
 import sys
 import os
 
-# 🔥 FIX: go to ROOT folder (IMPORTANT)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-sys.path.append(BASE_DIR)
+# Fix import path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from src.predict import predict_processing_time
 
-st.title("📋 Visa Prediction")
+st.title("🔮 Visa Processing Time Prediction")
 
-visa_type = st.selectbox("Visa Type", ["H1B", "L1", "B1", "F1"])
-visa_status = st.selectbox("Visa Status", ["certified", "denied", "withdrawn"])
-city = st.text_input("Working City", "New York")
-date = st.date_input("Case Received Date")
+# Sidebar Inputs
+visa_type = st.selectbox("Visa Type", ["H1B", "L1", "F1", "B1"])
+visa_status = st.selectbox("Visa Status", ["Certified", "Denied"])
+city = st.text_input("Work City", "New York")
+received_date = st.date_input("Case Received Date", date.today())
 
-st.divider()
+if st.button("Predict"):
 
-if st.button("🚀 Predict"):
-
-    payload = {
+    input_data = {
         "visa_type": visa_type,
         "visa_status": visa_status,
         "city": city,
-        "case_received_date": str(date)
+        "case_received_date": str(received_date)
     }
 
-    result = predict_processing_time(payload)
+    result = predict_processing_time(input_data)
 
     if "error" in result:
         st.error(result["error"])
     else:
-        st.success("Prediction Complete ✅")
+        st.success("Prediction Complete")
 
-        st.metric("⏳ Processing Days", result["estimated_processing_days"])
-        st.info(f"Confidence Range: {result['confidence_range']}")
+        col1, col2 = st.columns(2)
 
-        # 🔥 SAVE FOR PDF
-        st.session_state["last_result"] = {
-            "visa_type": visa_type,
-            "visa_status": visa_status,
-            "city": city,
-            "days": result["estimated_processing_days"],
-            "range": result["confidence_range"]
-        }
+        with col1:
+            st.metric("Estimated Days", result["estimated_processing_days"])
+
+        with col2:
+            st.metric("Confidence Range", result["confidence_range"])
+
+        # Visualization
+        fig = px.bar(
+            x=["Processing Time"],
+            y=[result["estimated_processing_days"]],
+            title="Estimated Processing Time"
+        )
+
+        st.plotly_chart(fig)

@@ -1,18 +1,18 @@
 import streamlit as st
 
-st.title("📌 About Project")
+st.title("ℹ️ About This Project")
 
 st.markdown("""
-## Visa AI System
+This is an **AI-based Visa Processing Estimator** built using:
 
-This project predicts visa processing time using:
-- Machine Learning (XGBoost, Random Forest)
-- Feature Engineering
-- Real-world visa dataset
+- Machine Learning models
+- Feature engineering
+- Real-world inspired dataset
+- Streamlit UI
 
-### 👨‍💻 Developer
+### 👨‍💻 Built By:
 Devansh Gupta
 
-### 🎯 Goal
-To help users estimate visa timelines intelligently.
+### 🎯 Goal:
+To simulate real-world visa processing prediction systems.
 """)

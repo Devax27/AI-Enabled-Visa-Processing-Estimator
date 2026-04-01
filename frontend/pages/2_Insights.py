@@ -2,22 +2,24 @@ import streamlit as st
 import pandas as pd
 import os
 
-st.title("📊 Visa Insights")
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-DATA_PATH = os.path.join(BASE_DIR, "data", "VisaFile_small.csv")
+st.title("📊 Model Insights")
 
-@st.cache_data
-def load_data():
-    return pd.read_csv(DATA_PATH, encoding="latin1")   # 🔥 IMPORTANT
+st.markdown("### Correlation Heatmap")
 
-df = load_data()
+image_path = os.path.join(BASE_DIR, "outputs", "correlation_heatmap.png")
 
-st.subheader("Top Visa Types")
-st.bar_chart(df["VISA_CLASS"].value_counts().head(10))
+if os.path.exists(image_path):
+    st.image(image_path, caption="Feature Correlation Heatmap")
+else:
+    st.warning("Run EDA first to generate insights.")
 
-st.subheader("Visa Status Distribution")
-st.bar_chart(df["VISA_STATUS"].value_counts())
+st.markdown("""
+### Key Insights:
 
-st.subheader("Top Cities")
-st.bar_chart(df["WORK_CITY"].value_counts().head(10))
+- Visa type strongly affects processing time  
+- Seasonal patterns impact delays  
+- High application volume increases waiting time  
+- Location plays a major role  
+""")
