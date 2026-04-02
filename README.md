@@ -1,182 +1,182 @@
-# 🌍 AI-Enabled Visa Processing Time Estimator
+🌍 AI-Enabled Visa Processing Time Estimator
 
-An AI-powered web application that predicts visa processing time using machine learning and provides interactive insights through a multi-page dashboard.
+An AI-powered, end-to-end machine learning system that predicts visa processing time, explains predictions using Explainable AI (SHAP), and provides an intelligent chatbot for user interaction.
 
----
+🔗 Live Demo
+🌐 Streamlit Web App
 
-## 🔗 Live Demo
+👉 https://ai-enabled-visa-processing-estimator.streamlit.app
 
-### 🌐 Streamlit Web App  
-https://ai-enabled-visa-processing-estimator.streamlit.app
+📌 Project Overview
 
----
+Visa applicants often face uncertainty regarding processing timelines.
+This project solves that problem using Machine Learning + Explainable AI + Interactive UI.
 
-## 📌 Project Overview
+The system takes inputs like:
 
-Visa applicants often face uncertainty regarding processing timelines and delays.  
-This project builds a machine learning-based system to estimate visa processing time using historical visa data.
+Visa Type
+Case Status
+Work City
+Case Received Date
 
-The system processes user inputs such as visa type, case status, working city, and case received date to generate predictions along with a confidence range.
+…and predicts:
 
-In addition, the application provides an interactive dashboard for data insights and allows users to download a summary report.
+✔ Estimated processing time
+✔ Confidence interval
+✔ Explanation of prediction
 
----
+✨ Key Features
+🚀 ML-based visa processing prediction
+📊 SHAP Explainability (Why prediction happened)
+🤖 AI Chatbot Assistant (Agentic AI)
+📉 Confidence interval estimation
+📈 Interactive insights dashboard
+📄 Report generation
+🌐 Multi-page Streamlit web app
+☁️ Fully deployed on cloud
+🤖 AI Assistant (Unique Feature)
 
-## ✨ Key Features
+The system includes an AI-powered chatbot using OpenAI API.
 
-- 🚀 AI-powered visa processing time prediction using real-world data  
-- 📊 Intelligent feature engineering with date-based and categorical insights  
-- ⚡ Optimized model handling high-dimensional data efficiently  
-- 🌐 Multi-page interactive web application with seamless navigation  
-- 📈 Dynamic insights dashboard with real-time visual analytics  
-- 📄 Smart PDF report generation with prediction summary  
-- 🧠 End-to-end ML pipeline (Data → Training → Deployment)  
-- ☁️ Cloud deployment with scalable architecture  
+It can:
 
-## 🧠 Machine Learning Pipeline
+Answer visa-related questions
+Explain delays
+Provide recommendations
+Handle fallback responses if API fails
 
-The system follows a complete ML pipeline:
+💡 This makes the project interactive + intelligent (Agentic AI system)
 
-- Data ingestion from real dataset  
-- Data preprocessing and cleaning  
-- Feature engineering (date-based + categorical encoding)  
-- Handling high-dimensional data  
-- Model training and evaluation  
-- Model serialization and deployment  
+🧠 Explainable AI (SHAP)
 
----
+The project uses SHAP to:
 
-## 🏗️ System Architecture
+Show feature impact on predictions
+Identify important factors (visa type, city, time)
+Improve transparency and trust
+🧠 Machine Learning Pipeline
 
-User  
- │  
- ▼  
-Streamlit Web App (Frontend)  
- │  
- ▼  
-Prediction Engine (Local ML Model)  
- │  
- ▼  
-Trained Model (XGBoost / Scikit-learn)  
+End-to-end pipeline:
 
-The application directly uses a trained machine learning model for real-time predictions without relying on external APIs.
+Data ingestion
+Data cleaning & preprocessing
+Feature engineering (date + categorical encoding)
+Model training (multiple models)
+Hyperparameter tuning
+Model evaluation
+Model serialization
+Deployment
+🏗️ System Architecture
+User Input
+   ↓
+Streamlit UI (Frontend)
+   ↓
+Prediction Engine (ML Model)
+   ↓
+SHAP Explainability
+   ↓
+AI Chatbot (OpenAI API)
+   ↓
+Final Output
+🛠️ Technology Stack
+🔹 Languages
+Python
+SQL
+🔹 Machine Learning
+Scikit-learn
+XGBoost
+CatBoost
+🔹 Data Processing
+Pandas
+NumPy
+🔹 Explainability
+SHAP
+🔹 Frontend
+Streamlit
+🔹 Visualization
+Plotly
+Matplotlib
+🔹 AI Integration
+OpenAI API
+🔹 Deployment
+Streamlit Community Cloud
+🔹 Tools
+Git
+GitHub
+VS Code
+📊 Model Details
 
----
+Models tested:
 
-## 🛠️ Technology Stack
+Linear Regression
+Random Forest
+Gradient Boosting
+XGBoost (Final Model ✅)
 
-### 🔹 Languages
-- Python  
-- SQL  
+✔ Selected for best performance and generalization
 
-### 🔹 Machine Learning
-- Scikit-learn  
-- XGBoost  
+📂 Project Structure
+frontend/
+├── app.py
+├── pages/
+│   ├── 1_Predict.py
+│   ├── 2_Insights.py
+│   ├── 3_Report.py
+│   ├── 4_About.py
+│   └── 5_AI_Assistant.py   🤖
 
-### 🔹 Data Processing
-- Pandas  
-- NumPy  
+src/
+├── train.py
+├── predict.py
 
-### 🔹 Frontend
-- Streamlit  
+models/
+├── visa_model.pkl
+├── model_features.pkl
+├── model_rmse.pkl
 
-### 🔹 Visualization
-- Plotly  
-- Matplotlib  
+data/
+├── VisaFile_small.csv
 
-### 🔹 Deployment
-- Streamlit Community Cloud  
-- AWS EC2  
+requirements.txt
+README.md
+⚙️ Installation & Setup
+# Clone repo
+git clone https://github.com/your-username/AI-Enabled-Visa-Processing-Estimator.git
 
-### 🔹 Tools
-- Git  
-- GitHub  
-- VS Code  
+# Navigate
+cd AI-Enabled-Visa-Processing-Estimator
 
----
+# Create virtual environment
+python -m venv venv
+venv\Scripts\activate
 
-## 📊 Model Details
+# Install dependencies
+pip install -r requirements.txt
 
-Multiple models were evaluated:
+# Run app
+streamlit run frontend/app.py
+🔐 Security Practices
+API keys are stored using .streamlit/secrets.toml
+Sensitive data is excluded using .gitignore
+API keys are rotated if exposed
+📈 Future Improvements
+Real-time visa API integration
+Advanced analytics dashboard
+Model performance optimization
+User authentication system
+Mobile-responsive UI
+💼 Resume Highlight
 
-- Linear Regression (baseline)  
-- Random Forest (ensemble)  
-- Gradient Boosting  
-- XGBoost (final model)  
+Built an AI-powered visa processing estimator using XGBoost with SHAP-based explainability and an integrated chatbot, deployed as a multi-page Streamlit application.
 
-XGBoost was selected due to better performance and stability.
+📄 License
 
----
+For educational and research purposes.
 
-## 📂 Project Structure
+🙌 Acknowledgements
 
-frontend/  
-├── app.py  
-├── pages/  
-│   ├── 1_Predict.py  
-│   ├── 2_Insights.py  
-│   ├── 3_Report.py  
-│   └── 4_About.py  
+Developed as part of a virtual internship to demonstrate real-world ML deployment and system design.
 
-src/  
-├── train_model.py  
-├── predict.py  
-
-models/  
-├── visa_model.pkl  
-├── model_features.pkl  
-├── model_rmse.pkl  
-
-data/  
-├── VisaFile_small.csv  
-
-requirements.txt  
-README.md  
-
----
-
-## ⚙️ Installation & Setup
-
-1. Clone repository  
-git clone https://github.com/your-username/AI-Enabled-Visa-Processing-Estimator.git  
-
-2. Navigate to project  
-cd AI-Enabled-Visa-Processing-Estimator  
-
-3. Create virtual environment  
-python -m venv venv  
-venv\Scripts\activate  
-
-4. Install dependencies  
-pip install -r requirements.txt  
-
-5. Run application  
-streamlit run frontend/app.py  
-
----
-
-## 📈 Future Improvements
-
-- Real-time visa data integration  
-- Advanced analytics dashboard  
-- Improved model accuracy with more features  
-- User authentication system  
-- Mobile-friendly interface  
-
----
-
-## 📄 License
-
-This project is for educational and research purposes.
-
----
-
-## 🙌 Acknowledgements
-
-This project was developed as part of a virtual internship to demonstrate the application of machine learning in real-world problem solving and deployment.
-
----
-
-## 👨‍💻 Author
+👨‍💻 Author
 
 Devansh Gupta
